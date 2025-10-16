@@ -1,35 +1,31 @@
 import React, { useState } from 'react';
 
-export default function Weather() {
+function Weather() {
   const [city, setCity] = useState('');
   const [data, setData] = useState(null);
 
   const getWeather = async () => {
-    const res = await fetch(
-  `https://api.openweathermap.org/data/2.5/weather?q=London&appid=57e11464b779cc91771d5d802cddf8ad&units=metric`
-);
-
-    const resultData = await res.json();
-    setData(resultData);
+    const res = await fetch(`  https://api.openweathermap.org/data/2.5/weather?q=London&appid=57e11464b779cc91771d5d802cddf8ad&units=metric
+`);
+    setData(await res.json());
   };
 
   return (
     <div>
-      <h2>Weather App</h2>
+      <h2>Weather app</h2>
       <input
         value={city}
-        onChange={(e) => setCity(e.target.value)}
+        onChange={e => setCity(e.target.value)}
         placeholder="Enter city"
       />
       <button onClick={getWeather}>Get Weather</button>
-
-      {data && data.main ? (
+      {data && (
         <p>
           {data.name}: {data.main.temp}°C, {data.weather[0].description}
         </p>
-      ) : (
-        data && <p>{data.message}</p>
       )}
     </div>
   );
 }
+
+export default Weather;
